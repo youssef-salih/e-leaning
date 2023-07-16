@@ -14,7 +14,7 @@ const Video = () => {
         setData(res.data);
       });
   }, []);
-  console.log(data);
+
   return (
     <div>
       <div className="h-full flex  p-5 justify-center">
