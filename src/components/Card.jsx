@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const Card = ({ src, thumb, name }) => {
   const [isPlaying, setIsPlaying] = useState(false);
