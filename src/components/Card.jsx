@@ -36,6 +36,7 @@ const Card = ({ src, thumb, name }) => {
         <div className="flex flex-col">
           <a href="#">
             <p className="text-gray-100 text-sm font-semibold">{name}</p>
+            <p className="text-gray-100 text-sm font-semibold">{name}</p>
           </a>
         </div>
       </div>
