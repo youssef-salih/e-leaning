@@ -26,6 +26,7 @@ const Navbar = () => {
   return (
     <div className="text-white">
       <img src={logo} alt="logo" className="w-[50%] mx-auto  md:w-[20%]" />
+      
     </div>
   );
 };
