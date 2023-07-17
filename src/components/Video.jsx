@@ -1,30 +1,43 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
-import axios from "axios";
+import { db } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 const Video = () => {
   const [data, setData] = useState([]);
 
-  // const videoCollectionRef = collection(db, "videos");
-
   useEffect(() => {
-    axios
-      .get("https://mocki.io/v1/df7d5be0-3c52-44e6-8c00-7aabfb54dbbc")
-      .then((res) => {
-        setData(res.data);
-      });
+    const fetchData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "videos"));
+        const videoData = [];
+        querySnapshot.forEach((doc) => {
+          // Assuming each document has 'url', 'name', and 'thumb' fields
+          const video = {
+            id: doc.id,
+            ...doc.data(),
+          };
+          videoData.push(video);
+        });
+        setData(videoData);
+      } catch (error) {
+        console.error("Error fetching videos:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
     <div>
       <div className="h-full flex  p-5 justify-center">
         <div className="grid grid-cols-12 gap-2 gap-y-4 max-w-6xl">
-          {data.map((datas) => (
+          {data.map((video) => (
             <div
               className="col-span-12 sm:col-span-6 md:col-span-3"
-              key={datas.name}
+              key={video.id}
             >
-              <Card src={datas.url} name={datas.name} thumb={datas.thumb} />
+              <Card src={video.url} name={video.name} thumb={video.thumb} />
             </div>
           ))}
         </div>
